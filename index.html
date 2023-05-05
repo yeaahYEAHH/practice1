@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Практическая работа 1</title>
+</head>
+<body>
+	
+</body>
+<script>
+	let obj = {
+	"money": ""
+},parameter, listF = [], listX = [], listL = [], list = [],
+flag, cnt = 0, xMoreZero = '',
+n = prompt("Количество изделий: ");
+
+for(let i = 1; i <= n; i++){
+	listX = [];
+	let count = 1;
+	alert(`Изделие: x${i} = ${i}-е изделие`)
+	
+	do{
+		parameter = prompt(`Параметр ${count}-й(в случае ): `);
+		listX.push(`${parameter},x${i}`)
+		flag = (parameter) ? true : false;
+		cnt++;
+		count++;
+	}while(flag)
+
+	obj.money = prompt("Денежное единица: ");
+
+	xMoreZero += `x${i} >= 0; `;
+	let arr = listX.slice(0, listX.length-1)
+	list.push(arr)
+	listF.push(`${obj.money}x${i}`)
+}
+
+let limit =[];
+for(let i = 0; i < (cnt / n) - 1; i++){
+	let item = prompt(`Ограничения ${i + 1}: `);
+	limit.push(item)
+}
+
+let i = 0, str = '';
+while (i <= list.length) {
+	let j = 0
+	while (j <= list.length) {
+		try{
+			let substr = list[j][i].split(',');
+			str += (substr[1] == 'x1') ? `\n${list[j][i]}` : ` ${list[j][i]}`;
+			str = str.replace(/,/g, "");
+			j++;
+		}catch(err){
+			break;
+		}
+	}
+	i++;
+}
+
+let arr = str.replace(/ /g, " + ").split('\n'),
+firstElement = arr.shift();
+for(index in arr){
+	arr[index] += ` <= ${limit[index]}`
+}
+
+alert(`F(x) = ${listF.join(' + ')} -> max
+
+${arr.join('\n')}
+
+${xMoreZero}
+`) 
+</script>
+</html>
